@@ -34,7 +34,7 @@
 USER_DIR = $(top_srcdir)
 MTCR_DIR = $(USER_DIR)/include/mtcr_ul
 TOOLS_LAYOUTS_DIR = $(USER_DIR)/tools_layouts
-AM_CPPFLAGS = -I. -I../common -I../tools_layouts  -I${MTCR_DIR} -I.. -I$(USER_DIR)/${MTCR_CONF_DIR}
+AM_CPPFLAGS = -I. -I../common -I../tools_layouts  -I${MTCR_DIR} -I.. -I$(USER_DIR)/mtcr_ul -I$(USER_DIR)/${MTCR_CONF_DIR}
 CCMDIF_SO = ccmdif.so
 
 AM_CFLAGS = -W -Wall -g -MP -MD $(COMPILER_FPIC) -DCMDIF_EXPORTS
