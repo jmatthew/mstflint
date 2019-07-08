@@ -59,8 +59,8 @@ default_en_inband=""
 
 LDFLAGS="${LDFLAGS} -L/usr/lib64 -L/usr/local/lib -L/usr/local/lib64"
 CXXFLAGS="${CXXFLAGS} -isystem /usr/local/include" 
-if test "x$OS" = "xFreeBSD"; then
-    AC_MSG_NOTICE(FreeBSD Build)
+if test "x$OS" = "xFreeBSD" -o "x$OS" = "xOpenBSD"; then
+    AC_MSG_NOTICE(FreeBSD/OpenBSD Build)
     MTCR_CONF_DIR="mtcr_freebsd"
     default_en_inband="no"
 else
@@ -394,8 +394,8 @@ AC_SUBST(ADABE_DBS)
 AC_SUBST(ADABE_DBS_EXTRA_DIST)
 AC_SUBST(XZ_UTILS_DIR)
 
-if test "x$OS" = "xFreeBSD"; then
-    AC_MSG_NOTICE(FreeBSD MTCR)
+if test "x$OS" = "xFreeBSD" -o "x$OS" = "xOpenBSD"; then
+    AC_MSG_NOTICE(FreeBSD/OpenBSD MTCR)
     AC_CONFIG_FILES(mtcr_freebsd/Makefile)
 else
     AC_MSG_NOTICE(Linux MTCR)

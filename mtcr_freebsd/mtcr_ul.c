@@ -36,11 +36,10 @@
 #include <err.h>
 #define _WITH_GETLINE
 #include <stdio.h>
-#include <sys/agpio.h>
 #include <sys/pciio.h>
 #include <sys/stat.h>
+#include <sys/ioctl.h>
 
-#include <dev/agp/agpreg.h>
 #include <dev/pci/pcireg.h>
 #include <sched.h>
 

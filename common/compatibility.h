@@ -48,7 +48,7 @@
 #define U16H_FMT    "0x%04x"
 #define U8H_FMT     "0x%02x"
 
-#if defined(__linux) || defined(__FreeBSD__) || defined(__MINGW32__) || defined(__MINGW64__) || defined(_WIN32) || defined(_WIN64)
+#if defined(__linux) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__MINGW32__) || defined(__MINGW64__) || defined(_WIN32) || defined(_WIN64)
 #    include <stdint.h>
 #    include <inttypes.h>
 #    if defined(PRId64) && defined(PRIx64)
@@ -103,12 +103,12 @@
 /*
  * Linux
  */
-#if defined(__linux__) || defined(__FreeBSD__)
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__OpenBSD__)
 // #include <asm/byteorder.h>
     #include <unistd.h>
     #include <sys/types.h>
 
-    #if defined(__FreeBSD__)
+    #if defined(__FreeBSD__) || defined(__OpenBSD__)
     #include <sys/endian.h>
 // WA: on FBSD the BYTE ORDER AND ENDIANESS names are different
     #ifndef __BYTE_ORDER

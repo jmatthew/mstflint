@@ -39,14 +39,14 @@
 #define FLINT_BASE_H
 
 #ifndef UEFI_BUILD
-    #ifndef __FreeBSD__
+    #if !defined(__FreeBSD__) && !defined(__OpenBSD__)
     #include <malloc.h>
     #endif
 #else
     #include "uefi_c.h"
 #endif
 
-#if defined __FreeBSD__
+#if defined(__FreeBSD__) || defined(__OpenBSD__)
     #include <stdarg.h>
 #endif
 

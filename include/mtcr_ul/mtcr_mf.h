@@ -34,7 +34,7 @@
 #ifndef __MTCR_MF__
 #define __MTCR_MF__
 #include "mtcr_com_defs.h"
-#ifdef __FreeBSD__
+#if defined(__FreeBSD__) || defined(__OpenBSD__)
 #include <sys/pciio.h>
 #endif
 
@@ -107,7 +107,7 @@ struct mfile_t {
     int is_cable;
     void *cable_ctx;
     f_mpci_change mpci_change;
-#ifdef __FreeBSD__
+#if defined(__FreeBSD__) || defined(__OpenBSD__)
     struct pcisel sel;
     unsigned int vpd_cap_addr;
     int wo_addr;

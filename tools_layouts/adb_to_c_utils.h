@@ -129,7 +129,7 @@ extern "C" {
 #define U16H_FMT    "0x%04x"
 #define U8H_FMT     "0x%02x"
 
-#if defined(__linux) || defined(__FreeBSD__) || defined(__MINGW32__) || defined(__MINGW64__) || defined(_WIN32) || defined(_WIN64)
+#if defined(__linux) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__MINGW32__) || defined(__MINGW64__) || defined(_WIN32) || defined(_WIN64)
 #    include <stdint.h>
 #    include <inttypes.h>
 #    if defined(PRId64) && defined(PRIx64)
