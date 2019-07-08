@@ -621,7 +621,35 @@ static int vsec_spaces_supported(mfile *mf)
 
 int device_exists(const char *devname);
 
-#if __FreeBSD_version > 700000
+#if defined(__OpenBSD__)
+int getsel(const char *str, struct pcisel *selout)
+{
+    char *ep;
+    unsigned long selarr[3];
+    struct pcisel sel;
+    int i;
+
+    /*
+     * for now, we just want bus:device:function here, like pcidump prints.
+     * we'll probably need to deal with pci domains somehow though.
+     */
+
+    ep = str;
+    i = 0;
+    do {
+        selarr[i++] = strtoul(ep, &ep, 10);
+    } while ((*ep == ':') && *++ep != '\0' && i < 3);
+
+    if (i != 3)
+        return 1;
+
+    sel.pc_func = selarr[2];
+    sel.pc_dev = selarr[1];
+    sel.pc_bus = selarr[0];
+    *selout = sel;
+    return 0;
+}
+#elif __FreeBSD_version > 700000
 int getsel(const char *str, struct pcisel *selout)
 {
     char *ep = strchr(str, '@');
@@ -1299,10 +1327,16 @@ int mdevices_v(char *buf, int len, int mask, int verbosity)
     char *p = buf;
     if (mask & MDEVS_TAVOR_CR) {
         /* Get all Mellanox devices - this cmd will return the needed devices one in every line */
+#if defined(__OpenBSD__)
+	fp = popen(
+	    "pcidump | awk '{if ($2 == \"Mellanox\") { split($1, a, \":\"); print a[1] \":\" a[2] \":\" a[3] }}'",
+	    "r");
+#else
         fp =
             popen(
                 "pciconf -lv | grep -B 1 Mellanox | grep pci | cut -f1 | cut -f2 -d \"@\" | cut -f1-4 -d \":\"",
                 "r");
+#endif
         if (fp == NULL) {
             return -1;
         }
